@@ -1,11 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 const intialCardState = {
-    'usifsiddfi': {
-        id: 'usifsiddfi',
-        name: 'playstation 5',
-        price: 18,
-        quantity: 15
-    }
+    
 }
 const cartSlice = createSlice({
     name: 'cart',
