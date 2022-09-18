@@ -14,7 +14,7 @@ function App() {
     const cart = useSelector(state => state.cart);
     const dispatch = useDispatch();
     const notification = useSelector(state => state.showCart.notification)
-
+    const changed = useSelector(state => state.cart.changed);
 
     useEffect(() => {
         dispatch(fetchCartData());
@@ -26,13 +26,18 @@ function App() {
             initial = false;
             return
         };
-
-        // if (cart.changed)
-        dispatch(sendCartData(cart))
-    }, [cart, dispatch])
+        if (changed)
+            dispatch(sendCartData(cart))
+    }, [cart, dispatch, changed])
     return (
         <>
-            {notification && <Notification status={notification.status} title={notification.title} message={notification.message} />}
+            {notification &&
+                <Notification
+                    status={notification.status}
+                    title={notification.title}
+                    message={notification.message}
+                />
+            }
             <Layout>
                 {showCart.show && <Cart />}
                 <Products />

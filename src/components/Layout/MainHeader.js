@@ -3,7 +3,8 @@ import classes from './MainHeader.module.css';
 import { useSelector } from 'react-redux'
 
 const MainHeader = (props) => {
-    const itemListObject = useSelector(state => state.cart);
+    const itemListObject = useSelector(state => state.cart.items);
+    // console.log(itemListObject)
     let quantity = 0;
     Object.values(itemListObject).forEach( (item) => {
         quantity += item.quantity;

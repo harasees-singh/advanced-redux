@@ -5,7 +5,7 @@ import { cartActions } from '../../store/cart';
 
 const ProductItem = (props) => {
     const dispatch = useDispatch();
-    const itemDetails = useSelector(state => state.cart[props.title])
+    const itemDetails = useSelector(state => state.cart.items[props.title])
 
     const { title, price, description } = props;
     const addItemHandler = () => {

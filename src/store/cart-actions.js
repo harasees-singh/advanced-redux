@@ -45,37 +45,40 @@ export const fetchCartData = () => {
     return async (dispatch) => {
         dispatch(
             showCartActions.showNotification({
-                status: 'pending',
-                title: 'Sending...',
-                message: 'Sending cart date',
+                status: 'fetching',
+                title: 'Fetching...',
+                message: 'Fetching cart date',
             })
         )
-        const sendRequest = async () => {
+        const fetchData = async () => {
             const response = await fetch(
                 'https://redux-cart-9ba07-default-rtdb.firebaseio.com/cart.json',
             )
+            
             if (!response.ok) {
                 throw new Error('Sending cart data failed');
             }
-            const cart = await response.json();
-
-            dispatch(cartActions.replaceCart({cart}));
+            return await response.json();
         }
         try {
-            await sendRequest();
+            const cartData = await fetchData();
+            dispatch(cartActions.replaceCart(
+                {items: cartData.items || {}}
+            ));    
             dispatch(
                 showCartActions.showNotification({
                     status: 'success',
                     title: 'Success',
-                    message: 'Sent cart data successfully',
+                    message: 'Fetched cart data successfully',
                 })
             )
         }
         catch (err) {
+            console.log(err.message)
             dispatch(showCartActions.showNotification({
                 status: 'error',
                 title: 'Error',
-                message: 'Sending cart data failed'
+                message: 'Fetching cart data failed'
             }))
         }
     }

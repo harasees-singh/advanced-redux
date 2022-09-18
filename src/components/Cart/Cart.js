@@ -4,7 +4,8 @@ import CartItem from './CartItem';
 import { useSelector } from 'react-redux';
 
 const Cart = (props) => {
-    const cartListObject = useSelector(state => state.cart); // object where item corresponds to and id key
+    const cartListObject = useSelector(state => state.cart.items); // object where item corresponds to and id key
+    // console.log(cartListObject)
     return (
         <Card className={classes.cart}>
             <h2>Your Shopping Cart</h2>
